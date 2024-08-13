@@ -1,5 +1,3 @@
-# Caesar cipher
-
 import pyperclip, os
 
 os.system('clear')
@@ -11,13 +9,9 @@ print("|                                     |")
 print("=======================================")
 message = input("What do you want to encrypt:> ")
 
-key = 1
-
+key = 5
 mode = 'encrypt'
-
-# Include space in the SYMBOLS string
 SYMBOLS = 'QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm1234567890!@#$%^&*()_+}{":>?<:">?< '
-
 translated = ''
 
 for symbol in message:
@@ -29,17 +23,21 @@ for symbol in message:
         elif mode == 'decrypt':
             translatedIndex = symbolIndex - key
 
-        # Correct the boundary conditions for wrapping around
         if translatedIndex >= len(SYMBOLS):
             translatedIndex = translatedIndex - len(SYMBOLS)
         elif translatedIndex < 0:
             translatedIndex = translatedIndex + len(SYMBOLS)
 
         translated = translated + SYMBOLS[translatedIndex]
-
     else:
         translated = translated + symbol
 
-
 print(translated)
 pyperclip.copy(translated)
+
+filename = input("To what file would you like to save it? (i.e secret_ceasar.txt):> ")
+
+with open(filename, 'w') as file:
+    file.write(translated)
+
+print(f"Secret message saved to {filename}")
